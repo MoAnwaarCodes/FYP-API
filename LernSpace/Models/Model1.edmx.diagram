@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="09b20d7ec6fb4934b47011874ee508b5" Name="Diagram1">
+        <EntityTypeShape EntityType="SlowlernerDbModel.appointment" Width="1.5" PointX="7.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.collection" Width="1.5" PointX="8.25" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.patient" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.patientPractic" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PatientTest" Width="1.5" PointX="10.5" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PatientTestCollectionFeedback" Width="1.5" PointX="13.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.person" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PersonIdentification" Width="1.5" PointX="10.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PersonIdentificationFeedback" Width="1.5" PointX="10.5" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PersonPicture" Width="1.5" PointX="5.25" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PersonPractice" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PersonTest" Width="1.5" PointX="5.25" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.PersonTestCollection" Width="1.5" PointX="7.5" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.Practic" Width="1.5" PointX="5.25" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.practicCollection" Width="1.5" PointX="10.5" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.Test" Width="1.5" PointX="5.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.testCollection" Width="1.5" PointX="7.5" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlowlernerDbModel.User" Width="1.5" PointX="3" PointY="23.625" IsExpanded="true" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_Parient" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_pracV" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_testV" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_user" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_collection" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_collectionPtc" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_collectionT" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_op1" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_op2" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_op3" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_ParientPrac" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_ParientU" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_patientPtc" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_PatientTest" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonIdentification_patient" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonIdentificationFeedback_patient" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonPractice_patient" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_pracP" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_testP" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_testPtc" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonIdentificationFeedback_person" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_personOp1" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_personOp2" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_personOp3" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonPicture_person" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonPractice_person" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonTestCollection_person" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonIdentification_PersonTest" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonIdentificationFeedback_PersonTest" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonPractice_User" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonTest_User" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_PersonTestCollection_PersonTest" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_pracCreateBy" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_practice" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.fk_test" ManuallyRouted="false" />
+        <AssociationConnector Association="SlowlernerDbModel.FK_TestCreateBy" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

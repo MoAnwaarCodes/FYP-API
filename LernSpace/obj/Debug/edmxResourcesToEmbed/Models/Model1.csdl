@@ -1,0 +1,846 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SlowlernerDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="appointment">
+    <Key>
+      <PropertyRef Name="app_Id" />
+    </Key>
+    <Property Name="app_Id" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="testId" Type="Int32" />
+    <Property Name="pracId" Type="Int32" />
+    <Property Name="patientId" Type="Int32" Nullable="false" />
+    <Property Name="appointmentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="nextAppointDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="feedback" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="patient" Relationship="Self.fk_Parient" FromRole="appointment" ToRole="patient" />
+    <NavigationProperty Name="Practic" Relationship="Self.fk_pracV" FromRole="appointment" ToRole="Practic" />
+    <NavigationProperty Name="Test" Relationship="Self.fk_testV" FromRole="appointment" ToRole="Test" />
+    <NavigationProperty Name="User" Relationship="Self.fk_user" FromRole="appointment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="collection">
+    <Key>
+      <PropertyRef Name="Collect_id" />
+    </Key>
+    <Property Name="Collect_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uText" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="eText" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="picPath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="C_group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="practicCollection" Relationship="Self.fk_collection" FromRole="collection" ToRole="practicCollection" />
+    <NavigationProperty Name="PatientTestCollectionFeedback" Relationship="Self.fk_collectionPtc" FromRole="collection" ToRole="PatientTestCollectionFeedback" />
+    <NavigationProperty Name="testCollection" Relationship="Self.fk_collectionT" FromRole="collection" ToRole="testCollection" />
+    <NavigationProperty Name="testCollection1" Relationship="Self.FK_op1" FromRole="collection" ToRole="testCollection" />
+    <NavigationProperty Name="testCollection2" Relationship="Self.FK_op2" FromRole="collection" ToRole="testCollection" />
+    <NavigationProperty Name="testCollection3" Relationship="Self.FK_op3" FromRole="collection" ToRole="testCollection" />
+  </EntityType>
+  <EntityType Name="patient">
+    <Key>
+      <PropertyRef Name="pid" />
+    </Key>
+    <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="stage" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="firstTime" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="appointment" Relationship="Self.fk_Parient" FromRole="patient" ToRole="appointment" />
+    <NavigationProperty Name="patientPractic" Relationship="Self.fk_ParientPrac" FromRole="patient" ToRole="patientPractic" />
+    <NavigationProperty Name="User" Relationship="Self.fk_ParientU" FromRole="patient" ToRole="User" />
+    <NavigationProperty Name="PatientTestCollectionFeedback" Relationship="Self.fk_patientPtc" FromRole="patient" ToRole="PatientTestCollectionFeedback" />
+    <NavigationProperty Name="PatientTest" Relationship="Self.fk_PatientTest" FromRole="patient" ToRole="PatientTest" />
+    <NavigationProperty Name="PersonIdentification" Relationship="Self.FK_PersonIdentification_patient" FromRole="patient" ToRole="PersonIdentification" />
+    <NavigationProperty Name="PersonIdentificationFeedback" Relationship="Self.FK_PersonIdentificationFeedback_patient" FromRole="patient" ToRole="PersonIdentificationFeedback" />
+    <NavigationProperty Name="PersonPractice" Relationship="Self.FK_PersonPractice_patient" FromRole="patient" ToRole="PersonPractice" />
+  </EntityType>
+  <EntityType Name="patientPractic">
+    <Key>
+      <PropertyRef Name="patientPracticId" />
+    </Key>
+    <Property Name="patientPracticId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="patientId" Type="Int32" Nullable="false" />
+    <Property Name="practicId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="patient" Relationship="Self.fk_ParientPrac" FromRole="patientPractic" ToRole="patient" />
+    <NavigationProperty Name="Practic" Relationship="Self.fk_pracP" FromRole="patientPractic" ToRole="Practic" />
+  </EntityType>
+  <EntityType Name="PatientTest">
+    <Key>
+      <PropertyRef Name="patientTestId" />
+    </Key>
+    <Property Name="patientTestId" Type="Int32" Nullable="false" />
+    <Property Name="patientId" Type="Int32" Nullable="false" />
+    <Property Name="testId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="patient" Relationship="Self.fk_PatientTest" FromRole="PatientTest" ToRole="patient" />
+    <NavigationProperty Name="Test" Relationship="Self.fk_testP" FromRole="PatientTest" ToRole="Test" />
+  </EntityType>
+  <EntityType Name="PatientTestCollectionFeedback">
+    <Key>
+      <PropertyRef Name="PtcId" />
+    </Key>
+    <Property Name="PtcId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="testId" Type="Int32" Nullable="false" />
+    <Property Name="collectionId" Type="Int32" Nullable="false" />
+    <Property Name="feedback" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="collection" Relationship="Self.fk_collectionPtc" FromRole="PatientTestCollectionFeedback" ToRole="collection" />
+    <NavigationProperty Name="patient" Relationship="Self.fk_patientPtc" FromRole="PatientTestCollectionFeedback" ToRole="patient" />
+    <NavigationProperty Name="Test" Relationship="Self.fk_testPtc" FromRole="PatientTestCollectionFeedback" ToRole="Test" />
+  </EntityType>
+  <EntityType Name="person">
+    <Key>
+      <PropertyRef Name="person_id" />
+    </Key>
+    <Property Name="person_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="relation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PersonIdentificationFeedback" Relationship="Self.FK_PersonIdentificationFeedback_person" FromRole="person" ToRole="PersonIdentificationFeedback" />
+    <NavigationProperty Name="PersonTestCollection" Relationship="Self.FK_personOp1" FromRole="person" ToRole="PersonTestCollection" />
+    <NavigationProperty Name="PersonTestCollection1" Relationship="Self.FK_personOp2" FromRole="person" ToRole="PersonTestCollection" />
+    <NavigationProperty Name="PersonTestCollection2" Relationship="Self.FK_personOp3" FromRole="person" ToRole="PersonTestCollection" />
+    <NavigationProperty Name="PersonPicture" Relationship="Self.FK_PersonPicture_person" FromRole="person" ToRole="PersonPicture" />
+    <NavigationProperty Name="PersonPractice" Relationship="Self.FK_PersonPractice_person" FromRole="person" ToRole="PersonPractice" />
+    <NavigationProperty Name="PersonTestCollection3" Relationship="Self.FK_PersonTestCollection_person" FromRole="person" ToRole="PersonTestCollection" />
+  </EntityType>
+  <EntityType Name="PersonIdentification">
+    <Key>
+      <PropertyRef Name="personIdentification1" />
+    </Key>
+    <Property Name="personIdentification1" Type="Int32" Nullable="false" />
+    <Property Name="persontestid" Type="Int32" />
+    <Property Name="patientId" Type="Int32" />
+    <NavigationProperty Name="patient" Relationship="Self.FK_PersonIdentification_patient" FromRole="PersonIdentification" ToRole="patient" />
+    <NavigationProperty Name="PersonTest" Relationship="Self.FK_PersonIdentification_PersonTest" FromRole="PersonIdentification" ToRole="PersonTest" />
+  </EntityType>
+  <EntityType Name="PersonIdentificationFeedback">
+    <Key>
+      <PropertyRef Name="pifId" />
+    </Key>
+    <Property Name="pifId" Type="Int32" Nullable="false" />
+    <Property Name="PatientId" Type="Int32" />
+    <Property Name="personTestId" Type="Int32" />
+    <Property Name="personId" Type="Int32" />
+    <Property Name="feedback" Type="Boolean" />
+    <NavigationProperty Name="patient" Relationship="Self.FK_PersonIdentificationFeedback_patient" FromRole="PersonIdentificationFeedback" ToRole="patient" />
+    <NavigationProperty Name="person" Relationship="Self.FK_PersonIdentificationFeedback_person" FromRole="PersonIdentificationFeedback" ToRole="person" />
+    <NavigationProperty Name="PersonTest" Relationship="Self.FK_PersonIdentificationFeedback_PersonTest" FromRole="PersonIdentificationFeedback" ToRole="PersonTest" />
+  </EntityType>
+  <EntityType Name="PersonPicture">
+    <Key>
+      <PropertyRef Name="personpictureid" />
+    </Key>
+    <Property Name="personpictureid" Type="Int32" Nullable="false" />
+    <Property Name="imgPath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="personid" Type="Int32" />
+    <NavigationProperty Name="person" Relationship="Self.FK_PersonPicture_person" FromRole="PersonPicture" ToRole="person" />
+  </EntityType>
+  <EntityType Name="PersonPractice">
+    <Key>
+      <PropertyRef Name="personPractice1" />
+    </Key>
+    <Property Name="personPractice1" Type="Int32" Nullable="false" />
+    <Property Name="personId" Type="Int32" />
+    <Property Name="patientId" Type="Int32" />
+    <Property Name="created_by" Type="Int32" />
+    <NavigationProperty Name="patient" Relationship="Self.FK_PersonPractice_patient" FromRole="PersonPractice" ToRole="patient" />
+    <NavigationProperty Name="person" Relationship="Self.FK_PersonPractice_person" FromRole="PersonPractice" ToRole="person" />
+    <NavigationProperty Name="User" Relationship="Self.FK_PersonPractice_User" FromRole="PersonPractice" ToRole="User" />
+  </EntityType>
+  <EntityType Name="PersonTest">
+    <Key>
+      <PropertyRef Name="ptest" />
+    </Key>
+    <Property Name="ptest" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="createdBy" Type="Int32" />
+    <NavigationProperty Name="PersonIdentification" Relationship="Self.FK_PersonIdentification_PersonTest" FromRole="PersonTest" ToRole="PersonIdentification" />
+    <NavigationProperty Name="PersonIdentificationFeedback" Relationship="Self.FK_PersonIdentificationFeedback_PersonTest" FromRole="PersonTest" ToRole="PersonIdentificationFeedback" />
+    <NavigationProperty Name="User" Relationship="Self.FK_PersonTest_User" FromRole="PersonTest" ToRole="User" />
+    <NavigationProperty Name="PersonTestCollection" Relationship="Self.FK_PersonTestCollection_PersonTest" FromRole="PersonTest" ToRole="PersonTestCollection" />
+  </EntityType>
+  <EntityType Name="PersonTestCollection">
+    <Key>
+      <PropertyRef Name="test_collection_person" />
+    </Key>
+    <Property Name="test_collection_person" Type="Int32" Nullable="false" />
+    <Property Name="personId" Type="Int32" />
+    <Property Name="personTestId" Type="Int32" />
+    <Property Name="op1" Type="Int32" />
+    <Property Name="op2" Type="Int32" />
+    <Property Name="op3" Type="Int32" />
+    <NavigationProperty Name="person" Relationship="Self.FK_personOp1" FromRole="PersonTestCollection" ToRole="person" />
+    <NavigationProperty Name="person1" Relationship="Self.FK_personOp2" FromRole="PersonTestCollection" ToRole="person" />
+    <NavigationProperty Name="person2" Relationship="Self.FK_personOp3" FromRole="PersonTestCollection" ToRole="person" />
+    <NavigationProperty Name="person3" Relationship="Self.FK_PersonTestCollection_person" FromRole="PersonTestCollection" ToRole="person" />
+    <NavigationProperty Name="PersonTest" Relationship="Self.FK_PersonTestCollection_PersonTest" FromRole="PersonTestCollection" ToRole="PersonTest" />
+  </EntityType>
+  <EntityType Name="Practic">
+    <Key>
+      <PropertyRef Name="PracId" />
+    </Key>
+    <Property Name="PracId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stage" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="appointment" Relationship="Self.fk_pracV" FromRole="Practic" ToRole="appointment" />
+    <NavigationProperty Name="patientPractic" Relationship="Self.fk_pracP" FromRole="Practic" ToRole="patientPractic" />
+    <NavigationProperty Name="User" Relationship="Self.FK_pracCreateBy" FromRole="Practic" ToRole="User" />
+    <NavigationProperty Name="practicCollection" Relationship="Self.fk_practice" FromRole="Practic" ToRole="practicCollection" />
+  </EntityType>
+  <EntityType Name="practicCollection">
+    <Key>
+      <PropertyRef Name="prac_collect_Id" />
+    </Key>
+    <Property Name="prac_collect_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="collectId" Type="Int32" Nullable="false" />
+    <Property Name="pracId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="collection" Relationship="Self.fk_collection" FromRole="practicCollection" ToRole="collection" />
+    <NavigationProperty Name="Practic" Relationship="Self.fk_practice" FromRole="practicCollection" ToRole="Practic" />
+  </EntityType>
+  <EntityType Name="Test">
+    <Key>
+      <PropertyRef Name="Testid" />
+    </Key>
+    <Property Name="Testid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stage" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createBy" Type="Int32" Nullable="false" />
+    <Property Name="stageIdentfy" Type="Boolean" />
+    <NavigationProperty Name="appointment" Relationship="Self.fk_testV" FromRole="Test" ToRole="appointment" />
+    <NavigationProperty Name="PatientTest" Relationship="Self.fk_testP" FromRole="Test" ToRole="PatientTest" />
+    <NavigationProperty Name="PatientTestCollectionFeedback" Relationship="Self.fk_testPtc" FromRole="Test" ToRole="PatientTestCollectionFeedback" />
+    <NavigationProperty Name="testCollection" Relationship="Self.fk_test" FromRole="Test" ToRole="testCollection" />
+    <NavigationProperty Name="User" Relationship="Self.FK_TestCreateBy" FromRole="Test" ToRole="User" />
+  </EntityType>
+  <EntityType Name="testCollection">
+    <Key>
+      <PropertyRef Name="test_collect_Id" />
+    </Key>
+    <Property Name="test_collect_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="collectId" Type="Int32" Nullable="false" />
+    <Property Name="testId" Type="Int32" Nullable="false" />
+    <Property Name="op1" Type="Int32" />
+    <Property Name="op2" Type="Int32" />
+    <Property Name="op3" Type="Int32" />
+    <NavigationProperty Name="collection" Relationship="Self.fk_collectionT" FromRole="testCollection" ToRole="collection" />
+    <NavigationProperty Name="collection1" Relationship="Self.FK_op1" FromRole="testCollection" ToRole="collection" />
+    <NavigationProperty Name="collection2" Relationship="Self.FK_op2" FromRole="testCollection" ToRole="collection" />
+    <NavigationProperty Name="collection3" Relationship="Self.FK_op3" FromRole="testCollection" ToRole="collection" />
+    <NavigationProperty Name="Test" Relationship="Self.fk_test" FromRole="testCollection" ToRole="Test" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="uid" />
+    </Key>
+    <Property Name="uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="profPicPath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="patientId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="appointment" Relationship="Self.fk_user" FromRole="User" ToRole="appointment" />
+    <NavigationProperty Name="patient" Relationship="Self.fk_ParientU" FromRole="User" ToRole="patient" />
+    <NavigationProperty Name="PersonPractice" Relationship="Self.FK_PersonPractice_User" FromRole="User" ToRole="PersonPractice" />
+    <NavigationProperty Name="PersonTest" Relationship="Self.FK_PersonTest_User" FromRole="User" ToRole="PersonTest" />
+    <NavigationProperty Name="Practic" Relationship="Self.FK_pracCreateBy" FromRole="User" ToRole="Practic" />
+    <NavigationProperty Name="Test" Relationship="Self.FK_TestCreateBy" FromRole="User" ToRole="Test" />
+  </EntityType>
+  <Association Name="fk_Parient">
+    <End Role="patient" Type="Self.patient" Multiplicity="1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_pracV">
+    <End Role="Practic" Type="Self.Practic" Multiplicity="0..1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Practic">
+        <PropertyRef Name="PracId" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="pracId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_testV">
+    <End Role="Test" Type="Self.Test" Multiplicity="0..1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test">
+        <PropertyRef Name="Testid" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="testId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_collection">
+    <End Role="collection" Type="Self.collection" Multiplicity="1" />
+    <End Role="practicCollection" Type="Self.practicCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collection">
+        <PropertyRef Name="Collect_id" />
+      </Principal>
+      <Dependent Role="practicCollection">
+        <PropertyRef Name="collectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_collectionPtc">
+    <End Role="collection" Type="Self.collection" Multiplicity="1" />
+    <End Role="PatientTestCollectionFeedback" Type="Self.PatientTestCollectionFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collection">
+        <PropertyRef Name="Collect_id" />
+      </Principal>
+      <Dependent Role="PatientTestCollectionFeedback">
+        <PropertyRef Name="collectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_collectionT">
+    <End Role="collection" Type="Self.collection" Multiplicity="1" />
+    <End Role="testCollection" Type="Self.testCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collection">
+        <PropertyRef Name="Collect_id" />
+      </Principal>
+      <Dependent Role="testCollection">
+        <PropertyRef Name="collectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_op1">
+    <End Role="collection" Type="Self.collection" Multiplicity="0..1" />
+    <End Role="testCollection" Type="Self.testCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collection">
+        <PropertyRef Name="Collect_id" />
+      </Principal>
+      <Dependent Role="testCollection">
+        <PropertyRef Name="op1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_op2">
+    <End Role="collection" Type="Self.collection" Multiplicity="0..1" />
+    <End Role="testCollection" Type="Self.testCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collection">
+        <PropertyRef Name="Collect_id" />
+      </Principal>
+      <Dependent Role="testCollection">
+        <PropertyRef Name="op2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_op3">
+    <End Role="collection" Type="Self.collection" Multiplicity="0..1" />
+    <End Role="testCollection" Type="Self.testCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collection">
+        <PropertyRef Name="Collect_id" />
+      </Principal>
+      <Dependent Role="testCollection">
+        <PropertyRef Name="op3" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ParientPrac">
+    <End Role="patient" Type="Self.patient" Multiplicity="1" />
+    <End Role="patientPractic" Type="Self.patientPractic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="patientPractic">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ParientU">
+    <End Role="patient" Type="Self.patient" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_patientPtc">
+    <End Role="patient" Type="Self.patient" Multiplicity="1" />
+    <End Role="PatientTestCollectionFeedback" Type="Self.PatientTestCollectionFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="PatientTestCollectionFeedback">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PatientTest">
+    <End Role="patient" Type="Self.patient" Multiplicity="1" />
+    <End Role="PatientTest" Type="Self.PatientTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="PatientTest">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonIdentification_patient">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="PersonIdentification" Type="Self.PersonIdentification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="PersonIdentification">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonIdentificationFeedback_patient">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="PersonIdentificationFeedback" Type="Self.PersonIdentificationFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="PersonIdentificationFeedback">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonPractice_patient">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="PersonPractice" Type="Self.PersonPractice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="PersonPractice">
+        <PropertyRef Name="patientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_pracP">
+    <End Role="Practic" Type="Self.Practic" Multiplicity="1" />
+    <End Role="patientPractic" Type="Self.patientPractic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Practic">
+        <PropertyRef Name="PracId" />
+      </Principal>
+      <Dependent Role="patientPractic">
+        <PropertyRef Name="practicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_testP">
+    <End Role="Test" Type="Self.Test" Multiplicity="1" />
+    <End Role="PatientTest" Type="Self.PatientTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test">
+        <PropertyRef Name="Testid" />
+      </Principal>
+      <Dependent Role="PatientTest">
+        <PropertyRef Name="testId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_testPtc">
+    <End Role="Test" Type="Self.Test" Multiplicity="1" />
+    <End Role="PatientTestCollectionFeedback" Type="Self.PatientTestCollectionFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test">
+        <PropertyRef Name="Testid" />
+      </Principal>
+      <Dependent Role="PatientTestCollectionFeedback">
+        <PropertyRef Name="testId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonIdentificationFeedback_person">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonIdentificationFeedback" Type="Self.PersonIdentificationFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonIdentificationFeedback">
+        <PropertyRef Name="personId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personOp1">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonTestCollection" Type="Self.PersonTestCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonTestCollection">
+        <PropertyRef Name="op1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personOp2">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonTestCollection" Type="Self.PersonTestCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonTestCollection">
+        <PropertyRef Name="op2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personOp3">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonTestCollection" Type="Self.PersonTestCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonTestCollection">
+        <PropertyRef Name="op3" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonPicture_person">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonPicture" Type="Self.PersonPicture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonPicture">
+        <PropertyRef Name="personid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonPractice_person">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonPractice" Type="Self.PersonPractice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonPractice">
+        <PropertyRef Name="personId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonTestCollection_person">
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="PersonTestCollection" Type="Self.PersonTestCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="PersonTestCollection">
+        <PropertyRef Name="personId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonIdentification_PersonTest">
+    <End Role="PersonTest" Type="Self.PersonTest" Multiplicity="0..1" />
+    <End Role="PersonIdentification" Type="Self.PersonIdentification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonTest">
+        <PropertyRef Name="ptest" />
+      </Principal>
+      <Dependent Role="PersonIdentification">
+        <PropertyRef Name="persontestid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonIdentificationFeedback_PersonTest">
+    <End Role="PersonTest" Type="Self.PersonTest" Multiplicity="0..1" />
+    <End Role="PersonIdentificationFeedback" Type="Self.PersonIdentificationFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonTest">
+        <PropertyRef Name="ptest" />
+      </Principal>
+      <Dependent Role="PersonIdentificationFeedback">
+        <PropertyRef Name="personTestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonPractice_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonPractice" Type="Self.PersonPractice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="PersonPractice">
+        <PropertyRef Name="created_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonTest_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonTest" Type="Self.PersonTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="PersonTest">
+        <PropertyRef Name="createdBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonTestCollection_PersonTest">
+    <End Role="PersonTest" Type="Self.PersonTest" Multiplicity="0..1" />
+    <End Role="PersonTestCollection" Type="Self.PersonTestCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonTest">
+        <PropertyRef Name="ptest" />
+      </Principal>
+      <Dependent Role="PersonTestCollection">
+        <PropertyRef Name="personTestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pracCreateBy">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Practic" Type="Self.Practic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="Practic">
+        <PropertyRef Name="createBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_practice">
+    <End Role="Practic" Type="Self.Practic" Multiplicity="1" />
+    <End Role="practicCollection" Type="Self.practicCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Practic">
+        <PropertyRef Name="PracId" />
+      </Principal>
+      <Dependent Role="practicCollection">
+        <PropertyRef Name="pracId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_test">
+    <End Role="Test" Type="Self.Test" Multiplicity="1" />
+    <End Role="testCollection" Type="Self.testCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test">
+        <PropertyRef Name="Testid" />
+      </Principal>
+      <Dependent Role="testCollection">
+        <PropertyRef Name="testId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestCreateBy">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Test" Type="Self.Test" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="Test">
+        <PropertyRef Name="createBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SlowlernerDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="appointment" EntityType="Self.appointment" />
+    <EntitySet Name="collection" EntityType="Self.collection" />
+    <EntitySet Name="patient" EntityType="Self.patient" />
+    <EntitySet Name="patientPractic" EntityType="Self.patientPractic" />
+    <EntitySet Name="PatientTest" EntityType="Self.PatientTest" />
+    <EntitySet Name="PatientTestCollectionFeedback" EntityType="Self.PatientTestCollectionFeedback" />
+    <EntitySet Name="person" EntityType="Self.person" />
+    <EntitySet Name="PersonIdentification" EntityType="Self.PersonIdentification" />
+    <EntitySet Name="PersonIdentificationFeedback" EntityType="Self.PersonIdentificationFeedback" />
+    <EntitySet Name="PersonPicture" EntityType="Self.PersonPicture" />
+    <EntitySet Name="PersonPractice" EntityType="Self.PersonPractice" />
+    <EntitySet Name="PersonTest" EntityType="Self.PersonTest" />
+    <EntitySet Name="PersonTestCollection" EntityType="Self.PersonTestCollection" />
+    <EntitySet Name="Practic" EntityType="Self.Practic" />
+    <EntitySet Name="practicCollection" EntityType="Self.practicCollection" />
+    <EntitySet Name="Test" EntityType="Self.Test" />
+    <EntitySet Name="testCollection" EntityType="Self.testCollection" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="fk_Parient" Association="Self.fk_Parient">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_pracV" Association="Self.fk_pracV">
+      <End Role="Practic" EntitySet="Practic" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_testV" Association="Self.fk_testV">
+      <End Role="Test" EntitySet="Test" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user" Association="Self.fk_user">
+      <End Role="User" EntitySet="User" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_collection" Association="Self.fk_collection">
+      <End Role="collection" EntitySet="collection" />
+      <End Role="practicCollection" EntitySet="practicCollection" />
+    </AssociationSet>
+    <AssociationSet Name="fk_collectionPtc" Association="Self.fk_collectionPtc">
+      <End Role="collection" EntitySet="collection" />
+      <End Role="PatientTestCollectionFeedback" EntitySet="PatientTestCollectionFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="fk_collectionT" Association="Self.fk_collectionT">
+      <End Role="collection" EntitySet="collection" />
+      <End Role="testCollection" EntitySet="testCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_op1" Association="Self.FK_op1">
+      <End Role="collection" EntitySet="collection" />
+      <End Role="testCollection" EntitySet="testCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_op2" Association="Self.FK_op2">
+      <End Role="collection" EntitySet="collection" />
+      <End Role="testCollection" EntitySet="testCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_op3" Association="Self.FK_op3">
+      <End Role="collection" EntitySet="collection" />
+      <End Role="testCollection" EntitySet="testCollection" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ParientPrac" Association="Self.fk_ParientPrac">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="patientPractic" EntitySet="patientPractic" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ParientU" Association="Self.fk_ParientU">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="fk_patientPtc" Association="Self.fk_patientPtc">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="PatientTestCollectionFeedback" EntitySet="PatientTestCollectionFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PatientTest" Association="Self.fk_PatientTest">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="PatientTest" EntitySet="PatientTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonIdentification_patient" Association="Self.FK_PersonIdentification_patient">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="PersonIdentification" EntitySet="PersonIdentification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonIdentificationFeedback_patient" Association="Self.FK_PersonIdentificationFeedback_patient">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="PersonIdentificationFeedback" EntitySet="PersonIdentificationFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonPractice_patient" Association="Self.FK_PersonPractice_patient">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="PersonPractice" EntitySet="PersonPractice" />
+    </AssociationSet>
+    <AssociationSet Name="fk_pracP" Association="Self.fk_pracP">
+      <End Role="Practic" EntitySet="Practic" />
+      <End Role="patientPractic" EntitySet="patientPractic" />
+    </AssociationSet>
+    <AssociationSet Name="fk_testP" Association="Self.fk_testP">
+      <End Role="Test" EntitySet="Test" />
+      <End Role="PatientTest" EntitySet="PatientTest" />
+    </AssociationSet>
+    <AssociationSet Name="fk_testPtc" Association="Self.fk_testPtc">
+      <End Role="Test" EntitySet="Test" />
+      <End Role="PatientTestCollectionFeedback" EntitySet="PatientTestCollectionFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonIdentificationFeedback_person" Association="Self.FK_PersonIdentificationFeedback_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonIdentificationFeedback" EntitySet="PersonIdentificationFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personOp1" Association="Self.FK_personOp1">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonTestCollection" EntitySet="PersonTestCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personOp2" Association="Self.FK_personOp2">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonTestCollection" EntitySet="PersonTestCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personOp3" Association="Self.FK_personOp3">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonTestCollection" EntitySet="PersonTestCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonPicture_person" Association="Self.FK_PersonPicture_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonPicture" EntitySet="PersonPicture" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonPractice_person" Association="Self.FK_PersonPractice_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonPractice" EntitySet="PersonPractice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonTestCollection_person" Association="Self.FK_PersonTestCollection_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="PersonTestCollection" EntitySet="PersonTestCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonIdentification_PersonTest" Association="Self.FK_PersonIdentification_PersonTest">
+      <End Role="PersonTest" EntitySet="PersonTest" />
+      <End Role="PersonIdentification" EntitySet="PersonIdentification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonIdentificationFeedback_PersonTest" Association="Self.FK_PersonIdentificationFeedback_PersonTest">
+      <End Role="PersonTest" EntitySet="PersonTest" />
+      <End Role="PersonIdentificationFeedback" EntitySet="PersonIdentificationFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonPractice_User" Association="Self.FK_PersonPractice_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PersonPractice" EntitySet="PersonPractice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonTest_User" Association="Self.FK_PersonTest_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PersonTest" EntitySet="PersonTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonTestCollection_PersonTest" Association="Self.FK_PersonTestCollection_PersonTest">
+      <End Role="PersonTest" EntitySet="PersonTest" />
+      <End Role="PersonTestCollection" EntitySet="PersonTestCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pracCreateBy" Association="Self.FK_pracCreateBy">
+      <End Role="User" EntitySet="User" />
+      <End Role="Practic" EntitySet="Practic" />
+    </AssociationSet>
+    <AssociationSet Name="fk_practice" Association="Self.fk_practice">
+      <End Role="Practic" EntitySet="Practic" />
+      <End Role="practicCollection" EntitySet="practicCollection" />
+    </AssociationSet>
+    <AssociationSet Name="fk_test" Association="Self.fk_test">
+      <End Role="Test" EntitySet="Test" />
+      <End Role="testCollection" EntitySet="testCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestCreateBy" Association="Self.FK_TestCreateBy">
+      <End Role="User" EntitySet="User" />
+      <End Role="Test" EntitySet="Test" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
